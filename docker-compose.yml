@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT}
+      - PORT=${PORT}
+      - API_KEY=${API_KEY}
+      - KEY_JWT=${KEY_JWT}
