@@ -3,15 +3,15 @@ import bcrypt from "bcryptjs";
 import { pool } from "../../db.js";
 
 export const authenticateToken = async (req, res, next) => {
-  // Extraer el token del encabezado de autorización y eliminar "Bearer "
-  const token = req.header("Authorization")?.replace("Bearer ", "");
-
-  // Verificar si el token está presente
-  if (!token) {
-    return res.status(401).json({ error: "Access denied" });
-  }
-
   try {
+    // Extraer el token del encabezado de autorización y eliminar "Bearer "
+    const token = req.header("Authorization")?.replace("Bearer ", "");
+
+    // Verificar si el token está presente
+    if (!token) {
+      return res.status(401).json({ error: 1, message: "Access denied" });
+    }
+
     // Verificar el token JWT usando la clave secreta
     const verified = jwt.verify(token, process.env.KEY_JWT);
     req.user = verified; // Almacenar la información del usuario verificado en req.user
@@ -25,7 +25,7 @@ export const authenticateToken = async (req, res, next) => {
 
     // Verificar si se encontró una sesión válida
     if (session.rows.length === 0) {
-      return res.status(401).json({ error: "Invalid token" });
+      return res.status(401).json({ error: 1, message: "Invalid token" });
     }
 
     const sessionData = session.rows[0];
@@ -33,7 +33,7 @@ export const authenticateToken = async (req, res, next) => {
 
     // Verificar si el token almacenado en la sesión coincide con el token actual
     if (!validToken) {
-      return res.status(401).json({ error: "Invalid token" });
+      return res.status(401).json({ error: 1, message: "Invalid token" });
     }
 
     // Verificar si la sesión ha expirado comparando con la fecha actual
@@ -45,13 +45,16 @@ export const authenticateToken = async (req, res, next) => {
       ]);
       return res
         .status(401)
-        .json({ error: "Session has expired. Please log in again." });
+        .json({
+          error: 1,
+          message: "Session has expired. Please log in again.",
+        });
     }
 
     // Si el token es válido y la sesión no ha expirado, pasar al siguiente middleware
     next();
   } catch (err) {
-    console.error("Error verificando el token:", err.message);
-    return res.status(400).json({ error: "Invalid token" });
+    console.error("Error verifying token:", err.message);
+    return res.status(400).json({ error: 1, message: "Invalid token" });
   }
 };
