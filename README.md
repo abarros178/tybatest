@@ -26,10 +26,12 @@ Este proyecto es una aplicación Node.js que implementa diversas funcionalidades
 
    ```bash
    git clone <repository-url>
+   ```
 2.**Instalar Dependencias**:
 npm install
 
 3.**Configurar Variables de Entorno**:
+```
 DB_USER: Usuario de PostgreSQL.
 DB_PASSWORD: Contraseña de PostgreSQL.
 DB_HOST: Dirección del host de PostgreSQL.
@@ -41,9 +43,14 @@ PORT: Puerto en el que se ejecutará la aplicación.
 API_KEY: Clave de la API de Google Places.
 KEY_JWT: Clave secreta para JWT.
 TOKEN_TEMP: Tiempo de expiración del token JWT.
+```
 
-3.**Ejecucion**:
+4.**Ejecucion**:
+```
 npm run dev
+```
 
-4.**Pruebas unitarias**:
+5.**Pruebas unitarias**:
+```
 npm test
+```
