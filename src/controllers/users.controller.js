@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 import { pool } from "../db.js";
 import axios from "axios";
@@ -218,10 +218,10 @@ export const getTransactions = async (req, res) => {
       values.push(userId);
     }
 
-    // Filtro por actionId
-    if (actionId) {
+    // Filtro por actionId (validar si es un número antes de agregarlo a la consulta)
+    if (actionId && !isNaN(actionId)) {
       conditions.push("t.action_id = $" + (values.length + 1));
-      values.push(actionId);
+      values.push(parseInt(actionId, 10)); // Convertir a entero
     }
 
     // Filtro por rango de fechas (startDate y endDate)
