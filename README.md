@@ -30,20 +30,20 @@ Este proyecto es una aplicación Node.js que implementa diversas funcionalidades
 npm install
 
 3.**Configurar Variables de Entorno**:
-DB_USER=
-DB_PASSWORD=
-DB_HOST=
-DB_DATABASE=
-DB_PORT=
-PGADMIN_DEFAULT_EMAIL=
-PGADMIN_DEFAULT_PASSWORD=
+DB_USER: Usuario de PostgreSQL.
+DB_PASSWORD: Contraseña de PostgreSQL.
+DB_HOST: Dirección del host de PostgreSQL.
+DB_DATABASE: Nombre de la base de datos PostgreSQL.
+DB_PORT: Puerto de PostgreSQL.
+PGADMIN_DEFAULT_EMAIL: Correo electrónico predeterminado para PgAdmin.
+PGADMIN_DEFAULT_PASSWORD: Contraseña predeterminada para PgAdmin.
+PORT: Puerto en el que se ejecutará la aplicación.
+API_KEY: Clave de la API de Google Places.
+KEY_JWT: Clave secreta para JWT.
+TOKEN_TEMP: Tiempo de expiración del token JWT.
 
-PORT=
-
-API_KEY=
-KEY_JWT=
-TOKEN_TEMP=
-3.**ejecucion**:
+3.**Ejecucion**:
 npm run dev
-4.**pruebas unitarias**:
+
+4.**Pruebas unitarias**:
 npm test
